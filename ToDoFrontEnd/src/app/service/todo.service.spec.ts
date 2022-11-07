@@ -9,10 +9,13 @@ import { TodoService } from './todo.service';
 describe('TodoService', () => {
   let service: TodoService;
   let httpClientSpy: any;
-  let httpclientGet: any;
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', [
+      'post',
+      'get',
+      'delete',
+    ]);
     TestBed.configureTestingModule({
       providers: [
         TodoApiService,
@@ -62,6 +65,18 @@ describe('TodoService', () => {
     // then
     expect(httpClientSpy.get).toHaveBeenCalledWith(
       `https://localhost:5001/todos/${id}`
+    );
+  });
+
+  it('should delete todo item via mockHttp delete', () => {
+    // given
+    httpClientSpy.delete.and.returnValue(of({}));
+    const id = 1;
+    // when
+    service.delete(id);
+    // then
+    expect(httpClientSpy.delete).toHaveBeenCalledWith(
+      `https://localhost:5001/todos/?id=${id}`
     );
   });
 });

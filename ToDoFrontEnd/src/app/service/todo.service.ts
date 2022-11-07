@@ -17,8 +17,8 @@ export class TodoService {
     private todoApiService: TodoApiService
   ) {}
 
-  public get todoItems(): Array<ToDoItem> {
-    return this.todoStore.getAll();
+  public getAll(): Observable<Array<ToDoItem>> {
+    return this.todoApiService.getAll();
   }
 
   public create(todoItem: ToDoItem): void {
@@ -35,7 +35,7 @@ export class TodoService {
   }
 
   public delete(id: number): void {
-    this.todoStore.delete(id);
+    this.todoApiService.delete(id).subscribe();
   }
 
   public selectTodoItem(id: number): void {

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ToDoItem } from '../../model/ToDoItem';
@@ -9,13 +10,13 @@ import { TodoService } from '../../service/todo.service';
   styleUrls: ['./list-todoitem.component.scss'],
 })
 export class ListTodoitemComponent implements OnInit {
-  public get toDoItems(): ToDoItem[] {
-    return this.todoService.todoItems;
-  }
+  toDoItems$: Observable<ToDoItem[]> | undefined;
 
   constructor(private todoService: TodoService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.toDoItems$ = this.todoService.getAll();
+  }
 
   public detail(id: number): void {
     this.todoService.selectTodoItem(id);

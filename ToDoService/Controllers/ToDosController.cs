@@ -90,7 +90,7 @@ namespace ToDoService.Controllers
             thorwExceptionIndex++;
             if (thorwExceptionIndex % 5 == 0)
             {
-                throw new Exception();
+                //throw new Exception();
             }
         }
     }

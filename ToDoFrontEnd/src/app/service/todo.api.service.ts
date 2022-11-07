@@ -18,4 +18,12 @@ export class TodoApiService {
   findById(id: number): Observable<ToDoItem> {
     return this.httpClient.get<ToDoItem>(`${this.baseUrl}/${id}`);
   }
+
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrl}/?id=${id}`);
+  }
+
+  getAll(): Observable<Array<ToDoItem>> {
+    return this.httpClient.get<Array<ToDoItem>>(this.baseUrl);
+  }
 }
