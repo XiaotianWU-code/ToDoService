@@ -35,7 +35,7 @@ describe('TodoService', () => {
     service.create(todoItem);
     // then
     expect(httpClientSpy.post).toHaveBeenCalledWith(
-      'https://635fc244ca0fe3c21aa3d012.mockapi.io/api/todos',
+      'https://localhost:5001/todos',
       todoItem
     );
   });

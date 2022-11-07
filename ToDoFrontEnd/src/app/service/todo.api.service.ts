@@ -11,7 +11,7 @@ export class TodoApiService {
 
   create(todoItem: ToDoItem): Observable<any> {
     return this.httpClient.post(
-      'https://localhost:5001/ToDos',
+      'https://localhost:5001/todos',
       todoItem
     );
   }
