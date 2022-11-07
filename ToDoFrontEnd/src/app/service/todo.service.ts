@@ -3,14 +3,12 @@ import { ToDoItem } from '../model/ToDoItem';
 import { TodoStoreService } from './todo-store.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TodoService {
-
   private _selectedTodoItem: ToDoItem = {} as ToDoItem;
   private _updatingTodoItem: ToDoItem = {} as ToDoItem;
-  constructor(private todoStore: TodoStoreService) {
-  }
+  constructor(private todoStore: TodoStoreService) {}
 
   public get todoItems(): Array<ToDoItem> {
     return this.todoStore.getAll();
@@ -38,6 +36,10 @@ export class TodoService {
 
   public currentTodoItem(): ToDoItem {
     return this._selectedTodoItem;
+  }
+
+  public findById(id: number): ToDoItem {
+    return this.todoStore.findById(id);
   }
 
   public currentUpdatingTodoItem(): ToDoItem {

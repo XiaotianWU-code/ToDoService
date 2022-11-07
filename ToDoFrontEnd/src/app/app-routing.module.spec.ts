@@ -41,7 +41,7 @@ describe('Router', () => {
   it('should goto todos/:id when navigate "todos/:Id"', fakeAsync(() => {
     // given
     // when
-    router.navigate(['todos/1']);
+    router.navigate(['todos', 1]);
     tick(50);
     // then
     expect(location.path()).toEqual('/todos/1');
@@ -50,7 +50,7 @@ describe('Router', () => {
   it('should goto todos/:id when navigate "todos/edit/:id"', fakeAsync(() => {
     // given
     // when
-    router.navigate(['todos/edit/1']);
+    router.navigate(['todos', 'edit', 1]);
     tick(50);
     // then
     expect(location.path()).toEqual('/todos/edit/1');
