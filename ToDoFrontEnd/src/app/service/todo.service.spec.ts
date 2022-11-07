@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { ToDoItem } from '../model/ToDoItem';
 import { TodoStoreService } from './todo-store.service';
 import { TodoApiService } from './todo.api.service';
@@ -30,6 +30,7 @@ describe('TodoService', () => {
   it('should create todo item via mockHttp post', () => {
     // given
     const todoItem = new ToDoItem(1, '11', '111', false);
+    httpClientSpy.post.and.returnValue(of({}));
     // when
     service.create(todoItem);
     // then
@@ -43,12 +44,11 @@ describe('TodoService', () => {
     // given
     const todoItem = new ToDoItem(1, '11', '111', false);
     httpClientSpy.post.and.returnValue(
-      throwError(() => ({errorMessage: 'create failed'}))
-    )
-    //when
-    service.create(todoItem)
+      throwError(() => ({ errorMessage: 'create failed' }))
+    );
+    // when
+    service.create(todoItem);
     // then
-    expect(service.errorMessage).toEqual('create failed')
+    expect(service.errorMessage).toEqual('create failed');
   });
-
 });
