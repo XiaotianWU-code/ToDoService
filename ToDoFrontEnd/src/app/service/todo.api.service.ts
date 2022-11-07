@@ -7,12 +7,15 @@ import { ToDoItem } from '../model/ToDoItem';
   providedIn: 'root',
 })
 export class TodoApiService {
-  constructor(private httpClient: HttpClient) { }
+  baseUrl = 'https://localhost:5001/todos';
+
+  constructor(private httpClient: HttpClient) {}
 
   create(todoItem: ToDoItem): Observable<any> {
-    return this.httpClient.post(
-      'https://localhost:5001/todos',
-      todoItem
-    );
+    return this.httpClient.post(this.baseUrl, todoItem);
+  }
+
+  findById(id: number): Observable<ToDoItem> {
+    return this.httpClient.get<ToDoItem>(`${this.baseUrl}/${id}`);
   }
 }

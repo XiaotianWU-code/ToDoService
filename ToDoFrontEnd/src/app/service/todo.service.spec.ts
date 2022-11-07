@@ -8,12 +8,11 @@ import { TodoService } from './todo.service';
 
 describe('TodoService', () => {
   let service: TodoService;
-  let todoStoreService: TodoStoreService;
   let httpClientSpy: any;
+  let httpclientGet: any;
 
   beforeEach(() => {
-    todoStoreService = new TodoStoreService();
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
     TestBed.configureTestingModule({
       providers: [
         TodoApiService,
@@ -50,5 +49,19 @@ describe('TodoService', () => {
     service.create(todoItem);
     // then
     expect(service.errorMessage).toEqual('create failed');
+  });
+
+  it('should get todo item via mockHttp get', () => {
+    // given
+    httpClientSpy.get.and.returnValue(of({}));
+    const id = 1;
+    // when
+    service.findById(id).subscribe((res) => {
+      console.log(res);
+    });
+    // then
+    expect(httpClientSpy.get).toHaveBeenCalledWith(
+      `https://localhost:5001/todos/${id}`
+    );
   });
 });
