@@ -9,6 +9,8 @@ import { TodoStoreService } from './todo-store.service';
 export class TodoService {
   private _selectedTodoItem: ToDoItem = {} as ToDoItem;
   private _updatingTodoItem: ToDoItem = {} as ToDoItem;
+  errorMessage!: string;
+
   constructor(
     private todoStore: TodoStoreService,
     private todoApiService: TodoApiService
