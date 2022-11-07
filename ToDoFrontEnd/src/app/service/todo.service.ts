@@ -1,3 +1,4 @@
+import { TodoApiService } from './todo.api.service';
 import { Injectable } from '@angular/core';
 import { ToDoItem } from '../model/ToDoItem';
 import { TodoStoreService } from './todo-store.service';
@@ -8,14 +9,17 @@ import { TodoStoreService } from './todo-store.service';
 export class TodoService {
   private _selectedTodoItem: ToDoItem = {} as ToDoItem;
   private _updatingTodoItem: ToDoItem = {} as ToDoItem;
-  constructor(private todoStore: TodoStoreService) {}
+  constructor(
+    private todoStore: TodoStoreService,
+    private todoApiService: TodoApiService
+  ) {}
 
   public get todoItems(): Array<ToDoItem> {
     return this.todoStore.getAll();
   }
 
   public create(todoItem: ToDoItem): void {
-    this.todoStore.create(todoItem);
+    this.todoApiService.create(todoItem);
   }
 
   public update(updateTodoItem: ToDoItem): void {
