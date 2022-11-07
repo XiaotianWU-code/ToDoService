@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { routes } from './app-routing.module';
 
 describe('Router', () => {
   let location: Location;
@@ -9,8 +10,8 @@ describe('Router', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([])],
-      declarations: []
+      imports: [RouterTestingModule.withRoutes(routes)],
+      declarations: [],
     });
 
     router = TestBed.get(Router);
@@ -19,7 +20,39 @@ describe('Router', () => {
     router.initialNavigation();
   });
 
-  it('test navigate', fakeAsync(() =>{
+  it('should goto todos when navigate ""', fakeAsync(() => {
+    // given
+    // when
+    router.navigate(['']);
+    tick(50);
+    // then
+    expect(location.path()).toEqual('/todos');
+  }));
 
+  it('should goto todos/create when navigate "todos/create"', fakeAsync(() => {
+    // given
+    // when
+    router.navigate(['todos/create']);
+    tick(50);
+    // then
+    expect(location.path()).toEqual('/todos/create');
+  }));
+
+  it('should goto todos/:id when navigate "todos/:Id"', fakeAsync(() => {
+    // given
+    // when
+    router.navigate(['todos/1']);
+    tick(50);
+    // then
+    expect(location.path()).toEqual('/todos/1');
+  }));
+
+  it('should goto todos/:id when navigate "todos/edit/:id"', fakeAsync(() => {
+    // given
+    // when
+    router.navigate(['todos/edit/1']);
+    tick(50);
+    // then
+    expect(location.path()).toEqual('/todos/edit/1');
   }));
 });
